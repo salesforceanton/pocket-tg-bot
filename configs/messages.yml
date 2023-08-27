@@ -1,0 +1,9 @@
+response:
+    start: "Hi! In order to save links in your Pocket account, first you need to give me access to it. To do this, follow the link:\n%s"
+    already_authorized: "You are already logged in with your Pocket account. Please send a link to save."
+    unknown_command: "I don't know such a command :("
+    link_saved: "Link saved successfully!"
+  error:
+    default: "An unknown error has occurred."
+    invalid_url: "This is an invalid url."
+    unable_to_save: "Unable to save link to Pocket. Please try again later."
