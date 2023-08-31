@@ -22,13 +22,6 @@ func main() {
 		return
 	}
 
-	// Create and start bot working
-	bot, err := telegram.NewBot(cfg)
-	if err != nil {
-		logger.LogIssueWithPoint("bot creation", err)
-		return
-	}
-
 	// Connect to repo
 	db, err := repository.InitBolt(cfg.BoltDBFile)
 	if err != nil {
@@ -43,10 +36,18 @@ func main() {
 		return
 	}
 
-	// Create server instance and run
+	// Create auth server instance
 	repo := repository.NewTokenStorage(db)
 	authServer := auth_server.NewServer(pocketClient, repo, cfg.BotURL)
 
+	// Create new bot instance
+	bot, err := telegram.NewBot(cfg, pocketClient, repo)
+	if err != nil {
+		logger.LogIssueWithPoint("bot creation", err)
+		return
+	}
+
+	// Run auth server async
 	go func() {
 		logger.LogInfoWithPoint("auth server", "SERVER RUN SUCCESFULLY")
 		if err := authServer.Run(); err != nil {

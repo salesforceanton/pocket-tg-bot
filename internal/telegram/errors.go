@@ -16,11 +16,11 @@ func (b *Bot) handleError(chatID int64, err error) {
 
 	switch err {
 	case invalidUrlError:
-		messageText = b.config.Messages.Errors.InvalidURL
+		messageText = b.cfg.Messages.Errors.InvalidURL
 	case unableToSaveError:
-		messageText = b.config.Messages.Errors.UnableToSave
+		messageText = b.cfg.Messages.Errors.UnableToSave
 	default:
-		messageText = b.config.Messages.Errors.Default
+		messageText = b.cfg.Messages.Errors.Default
 	}
 
 	msg := tgbotapi.NewMessage(chatID, messageText)

@@ -3,14 +3,18 @@ package telegram
 import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/salesforceanton/pocket-tg-bot/internal/config"
+	"github.com/salesforceanton/pocket-tg-bot/internal/repository"
+	"github.com/zhashkevych/go-pocket-sdk"
 )
 
 type Bot struct {
-	config *config.Config
-	bot    *tgbotapi.BotAPI
+	cfg          *config.Config
+	bot          *tgbotapi.BotAPI
+	pocketClient *pocket.Client
+	repo         repository.Repository
 }
 
-func NewBot(cfg *config.Config) (*Bot, error) {
+func NewBot(cfg *config.Config, pocketClient *pocket.Client, repo repository.Repository) (*Bot, error) {
 	bot, err := tgbotapi.NewBotAPI(cfg.TelegramBotToken)
 	if err != nil {
 		return nil, err
@@ -18,8 +22,10 @@ func NewBot(cfg *config.Config) (*Bot, error) {
 
 	bot.Debug = true
 	return &Bot{
-		config: cfg,
-		bot:    bot,
+		cfg:          cfg,
+		bot:          bot,
+		pocketClient: pocketClient,
+		repo:         repo,
 	}, nil
 }
 
@@ -47,7 +53,7 @@ func (b *Bot) Start() {
 
 		// Handle regular messages
 		if err := b.handleMessage(update.Message); err != nil {
-			b.handleError(update.Message.Chat.ID, err)
+			b.handleError(chatId, err)
 		}
 	}
 
