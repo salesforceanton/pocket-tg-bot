@@ -20,6 +20,8 @@ answer after process (saving into your Pocket account or handle any error), and 
 
 ### Setting up:
 
+At first we need to create App into Pocket service to take consumer key.
+
 Set on your `.env` file variables according with `.env.example` file
 In this example we can run with Docker Container: 
 
