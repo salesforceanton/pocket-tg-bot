@@ -52,5 +52,5 @@ func (b *Bot) generateAuthLink(chatId int64, redirectUrl string) (string, error)
 }
 
 func (b *Bot) generateRedirectUrl(chatId int64) string {
-	return fmt.Sprintf(REDIRECT_URL_TEMPLATE, b.cfg.AuthServerURL)
+	return fmt.Sprintf(REDIRECT_URL_TEMPLATE, b.cfg.AuthServerURL, chatId)
 }
