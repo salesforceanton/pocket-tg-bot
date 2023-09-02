@@ -49,6 +49,7 @@ func (b *Bot) Start() {
 			if err := b.handleCommand(update.Message); err != nil {
 				b.handleError(chatId, err)
 			}
+			continue
 		}
 
 		// Handle regular messages

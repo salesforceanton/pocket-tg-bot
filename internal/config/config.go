@@ -1,8 +1,6 @@
 package config
 
 import (
-	"errors"
-
 	"github.com/kelseyhightower/envconfig"
 	"github.com/spf13/viper"
 )
@@ -39,20 +37,20 @@ type Errors struct {
 func InitConfig() (*Config, error) {
 	var cfg Config
 
-	if err := setUpViper; err != nil {
-		return nil, errors.New("Error with config initialization")
+	if err := setUpViper(); err != nil {
+		return nil, err
 	}
 
 	if err := envconfig.Process("", &cfg); err != nil {
-		return nil, errors.New("Error with config initialization")
+		return nil, err
 	}
 
 	if err := viper.UnmarshalKey("response", &cfg.Messages.Responses); err != nil {
-		return nil, errors.New("Error with config initialization")
+		return nil, err
 	}
 
 	if err := viper.UnmarshalKey("error", &cfg.Messages.Errors); err != nil {
-		return nil, errors.New("Error with config initialization")
+		return nil, err
 	}
 
 	return &cfg, nil

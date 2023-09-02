@@ -74,7 +74,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Make authorize callout for getting Access token
 	authResp, err := s.pocketClient.Authorize(context.TODO(), requestToken)
 	if err != nil {
-		logger.LogIssueWithPoint("auth server", errors.New("error with authorize to pocket"))
+		logger.LogIssueWithPoint("auth server - authorize to pocket", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -83,7 +83,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// Store Access token in repo
 	s.repo.SaveAccessToken(chatId, accessToken)
 	if err != nil {
-		logger.LogIssueWithPoint("auth server", errors.New("error with authorize to pocket"))
+		logger.LogIssueWithPoint("auth server - saving access token", err)
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
