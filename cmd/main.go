@@ -49,7 +49,7 @@ func main() {
 
 	// Run auth server async
 	go func() {
-		logger.LogInfoWithPoint("auth server", "SERVER RUN SUCCESFULLY")
+		logger.LogInfoWithPoint("auth server", "SERVER RUN SUCCESSFULLY")
 		if err := authServer.Run(); err != nil {
 			logger.LogIssueWithPoint("auth server running", err)
 			return
@@ -58,7 +58,7 @@ func main() {
 
 	// Start bot async
 	go func() {
-		logger.LogInfoWithPoint("bot", "BOT RUN SUCCESFULLY")
+		logger.LogInfoWithPoint("bot", "BOT RUN SUCCESSFULLY")
 		bot.Start()
 	}()
 
@@ -77,5 +77,5 @@ func main() {
 		return
 	}
 
-	logger.LogInfoWithPoint("shutdown", "SERVER SHUTDOWN SUCCESFULLY")
+	logger.LogInfoWithPoint("shutdown", "SERVER SHUTDOWN SUCCESSFULLY")
 }
